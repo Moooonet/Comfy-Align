@@ -36,7 +36,6 @@ Temporary Items
 env/
 venv/
 build/
-images/
 develop-eggs/
 dist/
 downloads/
@@ -100,11 +99,3 @@ cookiecutter-pypackage-env/
 # vscode settings
 .history/
 *.code-workspace
-
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.bmp
-*.tiff
-*.ico
