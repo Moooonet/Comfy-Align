@@ -33,7 +33,7 @@ Tested on ComfyUI Desktop - works smoother than a compulsively aligned grid. Hap
 
 ## Features
 
-- **Node Alignment** - Align nodes to left, right, top, bottom, horizontal center, or vertical center
+- **Node Alignment** - Align nodes to left, right, top, bottom, horizontal equidistant distribution, vertical equidistant distribution
 - **Node Stretching** - Stretch nodes to match dimensions or align to edges
 - **Color Management** - Apply predefined colors to nodes or use custom colors
 - **Intuitive UI** - Radial menu activated with Alt+A
@@ -122,9 +122,3 @@ const CONFIG = {
 <div align="center">
   <img src="./images/buymeacoffee.jpg" width="100%">
 </div>
-
-
-## License
-
-Comfy-Align is licensed under the GNU General Public License v3.0 (GPL-3.0). See the LICENSE file for details.
-
