@@ -44,7 +44,7 @@ Tested on ComfyUI Desktop - works smoother than a compulsively aligned grid. Hap
    ```bash
    cd ComfyUI/custom_nodes
 
-   git clone https://github.com/Moooonet/Comfy-Align.git
+   git clone https://github.com/Moooonet/ComfyUI-Align.git
    ```
 2. Restart ComfyUI
 

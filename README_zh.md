@@ -45,7 +45,7 @@
    ```bash
    cd ComfyUI/custom_nodes
 
-   git clone https://github.com/Moooonet/Comfy-Align.git
+   git clone https://github.com/Moooonet/ComfyUI-Align.git
    ```
 2. 重启ComfyUI
 
