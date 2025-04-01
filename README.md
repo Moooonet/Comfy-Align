@@ -1,7 +1,6 @@
 <div align="center">
 <img src="./images/Comfy-Align.png" width="100%">
-
-<br>
+<br><br>
 
 [![English](https://img.shields.io/badge/Languages-English-blue)](README.md)
 [![简体中文](https://img.shields.io/badge/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-blue)](README_zh.md)
