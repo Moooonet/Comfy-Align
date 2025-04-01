@@ -39,6 +39,7 @@ build/
 develop-eggs/
 dist/
 downloads/
+images/
 eggs/
 .eggs/
 lib/
@@ -99,3 +100,7 @@ cookiecutter-pypackage-env/
 # vscode settings
 .history/
 *.code-workspace
+
+.pre-commit-config.yaml
+MANIFEST.in
+pyproject.toml
