@@ -121,7 +121,7 @@ const CONFIG = {
 
 ## Sponsor
 <div align="center">
-  <img src="./images/sponsor.jpg" width="100%">
+  <img src="./images/buymeacoffee.jpg" width="100%">
 </div>
 
 
