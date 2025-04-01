@@ -6,9 +6,6 @@ build-backend = "setuptools.build_meta"
 name = "Comfy-Align"
 version = "0.0.1"
 description = "A powerful ComfyUI plugin for alignment and color matching"
-authors = [
-  {name = "Moooonet", email = "moooonet@outlook.com"}
-]
 readme = "README.md"
 license = {text = "GNU General Public License v3"}
 classifiers = []
