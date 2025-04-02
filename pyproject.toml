@@ -3,7 +3,7 @@ requires = ["setuptools>=70.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "Comfy-Align"
+name = "comfyui-align"
 version = "0.0.1"
 description = "A powerful ComfyUI plugin for alignment and color matching"
 readme = "README.md"
@@ -24,12 +24,12 @@ dev = [
 ]
 
 [project.urls]
-bugs = "https://github.com/Moooonet/Comfy-Align/issues"
-homepage = "https://github.com/Moooonet/Comfy-Align"
+bugs = "https://github.com/Moooonet/ComfyUI-Align/issues"
+homepage = "https://github.com/Moooonet/ComfyUI-Align"
 
 
 [tool.comfy]
-PublisherId = "Moooonet"
+PublisherId = "moon"
 DisplayName = "Moon"
 Icon = ""
 
