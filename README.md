@@ -76,7 +76,7 @@ Tested on ComfyUI Desktop - works smoother than a compulsively aligned grid. Hap
 
 ### Color Management
 
-The plugin includes predefined colors:
+Color modification supports node and groups. The plugin includes predefined colors:
 
 | Color | Hex Code | Description |
 |-------|----------|-------------|

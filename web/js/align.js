@@ -2,6 +2,8 @@ const AlignerPlugin = (() => {
   const CONFIG = {
     iconSize: 36,
     spacing: 112,
+    horizontalMinSpacing: 30,
+    verticalMinSpacing: 25,
     colors: {
       circle1: '#83314a',
       circle2: '#79461d',
@@ -513,6 +515,24 @@ const AlignerPlugin = (() => {
       return selectedNodes;
     },
     
+    getSelectedGroups(appInstance) {
+      const selectedGroups = [];
+      
+      if (appInstance.canvas?.selected_groups?.length) {
+        return Array.from(appInstance.canvas.selected_groups);
+      }
+      
+      if (appInstance.graph?.groups) {
+        for (const group of appInstance.graph.groups) {
+          if (group.selected) {
+            selectedGroups.push(group);
+          }
+        }
+      }
+      
+      return selectedGroups;
+    },
+
     openNativeColorPicker() {
       const appInstance = this.getComfyUIAppInstance();
       if (!appInstance) {
@@ -521,22 +541,40 @@ const AlignerPlugin = (() => {
       }
 
       const selectedNodes = this.getSelectedNodes(appInstance);
-      if (selectedNodes.length === 0) {
-        dom.showNotification("Please select nodes to apply color");
+      const selectedGroups = this.getSelectedGroups(appInstance);
+      
+      if (selectedNodes.length === 0 && selectedGroups.length === 0) {
+        dom.showNotification("Please select nodes or groups to apply color");
         return;
       }
 
       const colorInput = document.createElement('input');
       colorInput.type = 'color';
-      colorInput.value = selectedNodes[0].color?.replace(/rgba?\(.*\)/, '#000000') || '#3355aa';
+      
+      // Get initial color from selected item
+      let initialColor = '#3355aa';
+      if (selectedNodes.length > 0) {
+        initialColor = selectedNodes[0].color?.replace(/rgba?\(.*\)/, '#000000') || '#3355aa';
+      } else if (selectedGroups.length > 0) {
+        initialColor = selectedGroups[0].color || '#3355aa';
+      }
+      
+      colorInput.value = initialColor;
       colorInput.style.position = 'absolute';
       colorInput.style.visibility = 'hidden';
       document.body.appendChild(colorInput);
 
       const handleColorChange = (e) => {
         const color = e.target.value;
+        
+        // Apply color to nodes
         selectedNodes.forEach(node => {
           node.color = color;
+        });
+        
+        // Apply color to groups
+        selectedGroups.forEach(group => {
+          group.color = color;
         });
 
         appInstance.graph.setDirtyCanvas(true, true);
@@ -609,8 +647,8 @@ const AlignerPlugin = (() => {
           return;
       }
       
-      if (result) {
-        dom.showNotification(result.message, !result.success);
+      if (result && !result.success) {
+        dom.showNotification(result.message, true);
       }
     },
 
@@ -734,21 +772,38 @@ const AlignerPlugin = (() => {
           return { success: false, message: "At least two nodes must be selected" };
         }
 
+        const sortedNodes = [...selectedNodes].sort((a, b) => a.pos[0] - b.pos[0]);
+        const nodeWidthSum = sortedNodes.reduce((sum, node) => sum + node.size[0], 0);
+        
         const leftmostX = Math.min(...selectedNodes.map(node => node.pos[0]));
         const rightmostX = Math.max(...selectedNodes.map(node => node.pos[0] + node.size[0]));
         const totalWidth = rightmostX - leftmostX;
-
-        const sortedNodes = [...selectedNodes].sort((a, b) => a.pos[0] - b.pos[0]);
-
-        const nodeWidthSum = sortedNodes.reduce((sum, node) => sum + node.size[0], 0);
-        const spacing = sortedNodes.length > 1 
-          ? (totalWidth - nodeWidthSum) / (sortedNodes.length - 1)
-          : 0;
-
+        
+        const minSpacing = CONFIG.horizontalMinSpacing;
+        const safetyMargin = 20;
+        const effectiveMinSpacing = minSpacing + safetyMargin;
+        
+        const totalRequiredSpace = nodeWidthSum + (sortedNodes.length - 1) * effectiveMinSpacing;
+        
+        let spacing = effectiveMinSpacing;
+        
+        if (totalWidth > totalRequiredSpace) {
+          spacing = (totalWidth - nodeWidthSum) / (sortedNodes.length - 1);
+          spacing = Math.max(spacing, effectiveMinSpacing);
+        }
+        
         let currentX = leftmostX;
-        sortedNodes.forEach(node => {
+        sortedNodes.forEach((node, index) => {
           node.pos[0] = currentX;
-          currentX += node.size[0] + spacing;
+          
+          if (index < sortedNodes.length - 1) {
+            const nextMinX = currentX + node.size[0] + effectiveMinSpacing;
+            currentX += node.size[0] + spacing;
+            
+            if (currentX < nextMinX) {
+              currentX = nextMinX;
+            }
+          }
         });
 
         appInstance.graph.setDirtyCanvas(true, true);
@@ -772,21 +827,38 @@ const AlignerPlugin = (() => {
           return { success: false, message: "At least two nodes must be selected" };
         }
 
+        const sortedNodes = [...selectedNodes].sort((a, b) => a.pos[1] - b.pos[1]);
+        const nodeHeightSum = sortedNodes.reduce((sum, node) => sum + node.size[1], 0);
+        
         const topmostY = Math.min(...selectedNodes.map(node => node.pos[1]));
         const bottommostY = Math.max(...selectedNodes.map(node => node.pos[1] + node.size[1]));
         const totalHeight = bottommostY - topmostY;
 
-        const sortedNodes = [...selectedNodes].sort((a, b) => a.pos[1] - b.pos[1]);
-
-        const nodeHeightSum = sortedNodes.reduce((sum, node) => sum + node.size[1], 0);
-        const spacing = sortedNodes.length > 1 
-          ? (totalHeight - nodeHeightSum) / (sortedNodes.length - 1)
-          : 0;
-
+        const minSpacing = CONFIG.verticalMinSpacing;
+        const safetyMargin = 20;
+        const effectiveMinSpacing = minSpacing + safetyMargin;
+        
+        const totalRequiredSpace = nodeHeightSum + (sortedNodes.length - 1) * effectiveMinSpacing;
+        
+        let spacing = effectiveMinSpacing;
+        
+        if (totalHeight > totalRequiredSpace) {
+          spacing = (totalHeight - nodeHeightSum) / (sortedNodes.length - 1);
+          spacing = Math.max(spacing, effectiveMinSpacing);
+        }
+        
         let currentY = topmostY;
-        sortedNodes.forEach(node => {
+        sortedNodes.forEach((node, index) => {
           node.pos[1] = currentY;
-          currentY += node.size[1] + spacing;
+          
+          if (index < sortedNodes.length - 1) {
+            const nextMinY = currentY + node.size[1] + effectiveMinSpacing;
+            currentY += node.size[1] + spacing;
+            
+            if (currentY < nextMinY) {
+              currentY = nextMinY;
+            }
+          }
         });
 
         appInstance.graph.setDirtyCanvas(true, true);
@@ -1050,8 +1122,10 @@ const AlignerPlugin = (() => {
         }
 
         const selectedNodes = this.getSelectedNodes(appInstance);
-        if (selectedNodes.length === 0) {
-          return { success: false, message: "Please select nodes to apply color" };
+        const selectedGroups = this.getSelectedGroups(appInstance);
+        
+        if (selectedNodes.length === 0 && selectedGroups.length === 0) {
+          return { success: false, message: "Please select nodes or groups to apply color" };
         }
 
         let color;
@@ -1072,10 +1146,19 @@ const AlignerPlugin = (() => {
             delete node.color;
             delete node.bgcolor;
           });
+          
+          selectedGroups.forEach(group => {
+            delete group.color;
+          });
         } else {
           color = CONFIG.colors[colorKey];
+          
           selectedNodes.forEach(node => {
             node.color = color;
+          });
+          
+          selectedGroups.forEach(group => {
+            group.color = color;
           });
         }
 
@@ -1083,7 +1166,7 @@ const AlignerPlugin = (() => {
         
         return { success: true };
       } catch (error) {
-        console.error("Setting node color failed:", error);
+        console.error("Setting color failed:", error);
         return { success: false, message: `Operation failed: ${error.message}` };
       }
     }
