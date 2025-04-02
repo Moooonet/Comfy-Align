@@ -5,7 +5,7 @@ const AlignerPlugin = (() => {
     horizontalMinSpacing: 30,
     verticalMinSpacing: 25,
     colors: {
-      circle1: '#83314a',
+      circle1: '#a93232',
       circle2: '#79461d',
       circle3: '#6e6e1d',
       circle4: '#2b652b',
@@ -832,7 +832,7 @@ const AlignerPlugin = (() => {
         const totalHeight = bottommostY - topmostY;
 
         const minSpacing = CONFIG.verticalMinSpacing;
-        const safetyMargin = 20;
+        const safetyMargin = 30;
         const effectiveMinSpacing = minSpacing + safetyMargin;
         
         const totalRequiredSpace = nodeHeightSum + (sortedNodes.length - 1) * effectiveMinSpacing;

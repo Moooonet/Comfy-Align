@@ -35,7 +35,7 @@ Tested on ComfyUI Desktop - works smoother than a compulsively aligned grid. Hap
 
 - **Node Alignment** - Align nodes to left, right, top, bottom, horizontal equidistant distribution, vertical equidistant distribution
 - **Node Stretching** - Stretch nodes to match dimensions or align to edges
-- **Color Management** - Apply predefined colors to nodes or use custom colors
+- **Color Management** - Apply predefined colors to nodes and groups or use custom colors
 - **Intuitive UI** - Radial menu activated with Alt+A
 
 ## Installation
@@ -80,7 +80,7 @@ Color modification supports node and groups. The plugin includes predefined colo
 
 | Color | Hex Code | Description |
 |-------|----------|-------------|
-| 🔴 | #83314a | Red |
+| 🔴 | #a93232 | Red |
 | 🟠 | #79461d | Orange | 
 | 🟡 | #6e6e1d | Yellow |
 | 🟢 | #2b652b | Green |
