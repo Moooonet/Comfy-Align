@@ -3,7 +3,7 @@ requires = ["setuptools>=70.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "comfyui-align"
+name = "ComfyUI-Align"
 version = "0.0.1"
 description = "A powerful ComfyUI plugin for alignment and color matching"
 readme = "README.md"
