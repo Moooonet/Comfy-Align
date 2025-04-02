@@ -550,8 +550,7 @@ const AlignerPlugin = (() => {
 
       const colorInput = document.createElement('input');
       colorInput.type = 'color';
-      
-      // Get initial color from selected item
+
       let initialColor = '#3355aa';
       if (selectedNodes.length > 0) {
         initialColor = selectedNodes[0].color?.replace(/rgba?\(.*\)/, '#000000') || '#3355aa';
@@ -566,13 +565,11 @@ const AlignerPlugin = (() => {
 
       const handleColorChange = (e) => {
         const color = e.target.value;
-        
-        // Apply color to nodes
+
         selectedNodes.forEach(node => {
           node.color = color;
         });
-        
-        // Apply color to groups
+
         selectedGroups.forEach(group => {
           group.color = color;
         });
