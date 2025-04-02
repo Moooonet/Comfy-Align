@@ -101,6 +101,8 @@
 const CONFIG = {
   iconSize: 36,        // 图标大小
   spacing: 112,        // 图标间距
+  horizontalMinSpacing: 30,  // 水平等距分布时节点之间的最小间距
+  verticalMinSpacing: 25,    // 垂直等距分布时节点之间的最小间距
   colors: {
     circle1: '#83314a',  // 红色
     circle2: '#79461d',  // 橙色

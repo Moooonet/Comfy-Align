@@ -98,6 +98,8 @@ The default shortcut key is `Alt+A`. If you want to modify the shortcut key and 
 const CONFIG = {
   iconSize: 36,        // icon size
   spacing: 112,        // icon spacing
+  horizontalMinSpacing: 30,  // minimum spacing between nodes when distributed horizontally with equal spacing
+  verticalMinSpacing: 25,    // minimum spacing between nodes when distributed vertically with equal spacing
   colors: {
     circle1: '#83314a',  // red
     circle2: '#79461d',  // orange
