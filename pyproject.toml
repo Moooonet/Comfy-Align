@@ -1,76 +1,14 @@
-[build-system]
-requires = ["setuptools>=70.0"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "ComfyUI-Align"
-version = "0.0.3"
-description = "A powerful ComfyUI plugin for alignment and color matching"
-readme = "README.md"
-license = {text = "GNU General Public License v3"}
-classifiers = []
-dependencies = [
-
-]
-
-[project.optional-dependencies]
-dev = [
-    "bump-my-version",
-    "coverage",  # testing
-    "mypy",  # linting
-    "pre-commit", # runs linting on commit
-    "pytest",  # testing
-    "ruff",  # linting
-]
+name = "comfyui-align"
+description = "A powerful node alignment and color management plugin for ComfyUI, designed to enhance your workflow efficiency"
+version = "1.0.0"
+license = {file = "LICENSE"}
 
 [project.urls]
-bugs = "https://github.com/Moooonet/ComfyUI-Align/issues"
-homepage = "https://github.com/Moooonet/ComfyUI-Align"
-
+Repository = "https://github.com/Moooonet/ComfyUI-Align"
+#  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
 PublisherId = "moon"
 DisplayName = "ComfyUI-Align"
 Icon = ""
-
-[tool.setuptools.package-data]
-"*" = ["*.*"]
-
-[tool.pytest.ini_options]
-minversion = "8.0"
-testpaths = [
-    "tests",
-]
-
-[tool.mypy]
-files = "."
-
-# Use strict defaults
-strict = true
-warn_unreachable = true
-warn_no_return = true
-
-[[tool.mypy.overrides]]
-# Don't require test functions to include types
-module = "tests.*"
-allow_untyped_defs = true
-disable_error_code = "attr-defined"
-
-[tool.ruff]
-# extend-exclude = ["static", "ci/templates"]
-line-length = 140
-src = ["src", "tests"]
-target-version = "py39"
-
-# Add rules to ban exec/eval
-[tool.ruff.lint]
-select = [
-    "S102",  # exec-builtin
-    "S307",  # eval-used
-    "W293",
-    "F",  # The "F" series in Ruff stands for "Pyflakes" rules, which catch various Python syntax errors and undefined names.
-    # See all rules here: https://docs.astral.sh/ruff/rules/#pyflakes-f
-]
-
-[tool.ruff.lint.flake8-quotes]
-inline-quotes = "double"
