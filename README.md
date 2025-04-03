@@ -62,8 +62,8 @@ Tested on ComfyUI Desktop - works smoother than a compulsively aligned grid. Hap
 - **Right Alignment** - Aligns all selected nodes to the rightmost edge
 - **Top Alignment** - Aligns all selected nodes to the top edge
 - **Bottom Alignment** - Aligns all selected nodes to the bottom edge
-- **Horizontal Center** - Distributes nodes horizontally with equal spacing
-- **Vertical Center** - Distributes nodes vertically with equal spacing
+- **Horizontal Equal Spacing & Left Alignment** - Distribute nodes with equal horizontal spacing and left-align them to the leftmost node
+- **Vertical Equal Spacing & Top Alignment** - Distribute nodes with equal vertical spacing and top-align them to the topmost node
 
 ### Node Stretching
 
