@@ -30,7 +30,7 @@ homepage = "https://github.com/Moooonet/ComfyUI-Align"
 
 [tool.comfy]
 PublisherId = "moon"
-DisplayName = "Moon"
+DisplayName = "ComfyUI-Align"
 Icon = ""
 
 [tool.setuptools.package-data]
