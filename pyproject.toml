@@ -1,5 +1,5 @@
 [project]
-name = "comfyui-align"
+name = "ComfyUI-Align"
 description = "A powerful node alignment and color management plugin for ComfyUI, designed to enhance your workflow efficiency"
 version = "1.0.0"
 license = {file = "LICENSE"}
