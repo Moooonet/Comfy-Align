@@ -776,6 +776,15 @@ const AlignerPlugin = (() => {
         const rightmostX = Math.max(...selectedNodes.map(node => node.pos[0] + node.size[0]));
         const totalWidth = rightmostX - leftmostX;
         
+        const leftmostNode = sortedNodes[0];
+        const leftmostNodeTopY = leftmostNode.pos[1];
+
+        selectedNodes.forEach(node => {
+          if (node !== leftmostNode) {
+            node.pos[1] = leftmostNodeTopY;
+          }
+        });
+        
         const minSpacing = CONFIG.horizontalMinSpacing;
         const safetyMargin = 20;
         const effectiveMinSpacing = minSpacing + safetyMargin;
@@ -830,6 +839,15 @@ const AlignerPlugin = (() => {
         const topmostY = Math.min(...selectedNodes.map(node => node.pos[1]));
         const bottommostY = Math.max(...selectedNodes.map(node => node.pos[1] + node.size[1]));
         const totalHeight = bottommostY - topmostY;
+
+        const topNode = sortedNodes[0];
+        const topNodeCenterX = topNode.pos[0] + (topNode.size[0] / 2);
+
+        selectedNodes.forEach(node => {
+          const nodeCenterX = node.pos[0] + (node.size[0] / 2);
+          const offsetX = topNodeCenterX - nodeCenterX;
+          node.pos[0] += offsetX;
+        });
 
         const minSpacing = CONFIG.verticalMinSpacing;
         const safetyMargin = 30;
