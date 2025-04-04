@@ -121,5 +121,9 @@ const CONFIG = {
 ## 赞赏
 
 <div align="center">
+  <br>
+  <p><strong><i>赠人玫瑰，手留余香</i></strong></p>
+  <p>每一份支持都将直接转化为开源世界的进步，这些来自社区的温暖，既是对技术价值的认可，更构成了开源生态持续运转的底层燃料。</p>
+  <br>
   <img src="./images/buymeacoffee.jpg" width="100%">
 </div>

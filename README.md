@@ -117,5 +117,9 @@ const CONFIG = {
 
 ## Sponsor
 <div align="center">
+  <br>
+  <p><strong><i>The fragrance always stays in the hand that gives the rose.</i></strong></p>
+  <p>Every contribution directly fuels progress in the open-source world. This support from the community not only validates the value of technology, but constitutes the lifeblood that sustains the open-source ecosystem.</p>
+  <br>
   <img src="./images/buymeacoffee.jpg" width="100%">
 </div>
