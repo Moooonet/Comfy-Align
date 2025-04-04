@@ -97,6 +97,7 @@ If you want to modify the shortcut keys as well as the Vertical Min Spacing and 
   <img src="./images/settings.png" width="100%">
 </div>
 
+
 If you want to modify the preset colors, you can locate the following section in `web\js\align.js` to make changes:
 
 ```javascript

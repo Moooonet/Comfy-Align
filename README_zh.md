@@ -100,6 +100,7 @@
   <img src="./images/settings.png" width="100%">
 </div>
 
+
 如果您想修改预设颜色，可在`web\js\align.js`中找到如下部分进行修改：
 
 ```javascript
