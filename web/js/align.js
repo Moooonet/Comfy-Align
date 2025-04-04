@@ -144,29 +144,50 @@ const AlignerPlugin = (() => {
       }
       
       const positions = [
-        [x - effectiveSpacing, y - halfSize - iconSize - 5],
-        [x - effectiveSpacing, y - halfSize],
-        [x - effectiveSpacing, y + halfSize + 5],
-        [x - halfSize - iconSize - 5, y - effectiveSpacing],
-        [x - halfSize, y - effectiveSpacing],
-        [x + halfSize + 5, y - effectiveSpacing],
-        [x + effectiveSpacing - iconSize, y - halfSize - iconSize - 5],
-        [x + effectiveSpacing - iconSize, y - halfSize],
-        [x + effectiveSpacing - iconSize, y + halfSize + 5],
-        [x - halfSize - iconSize - 5, y + effectiveSpacing - iconSize],
-        [x - halfSize, y + effectiveSpacing - iconSize],
-        [x + halfSize + 5, y + effectiveSpacing - iconSize],
+        [-effectiveSpacing, -halfSize - iconSize - 5],
+        [-effectiveSpacing, -halfSize],
+        [-effectiveSpacing, halfSize + 5],
+        [-halfSize - iconSize - 5, -effectiveSpacing],
+        [-halfSize, -effectiveSpacing],
+        [halfSize + 5, -effectiveSpacing],
+        [effectiveSpacing - iconSize, -halfSize - iconSize - 5],
+        [effectiveSpacing - iconSize, -halfSize],
+        [effectiveSpacing - iconSize, halfSize + 5],
+        [-halfSize - iconSize - 5, effectiveSpacing - iconSize],
+        [-halfSize, effectiveSpacing - iconSize],
+        [halfSize + 5, effectiveSpacing - iconSize],
       ];
 
-      return positions[index] || [x, y];
+      return positions[index] || [0, 0];
     },
 
-    keepInViewport(x, y, size) {
+    keepInViewport(x, y, entireWidth, entireHeight) {
       const margin = 20;
       return [
-        Math.max(margin, Math.min(x, window.innerWidth - size - margin)),
-        Math.max(margin, Math.min(y, window.innerHeight - size - margin))
+        Math.max(margin, Math.min(x, window.innerWidth - entireWidth - margin)),
+        Math.max(margin, Math.min(y, window.innerHeight - entireHeight - margin))
       ];
+    },
+    
+    calculateUIBoundingBox(centerX, centerY) {
+      const { iconSize, spacing } = CONFIG;
+      const effectiveSpacing = spacing + iconSize / 2;
+
+      const width = effectiveSpacing * 2;
+      const height = effectiveSpacing * 2;
+
+      const colorPickerHeight = 50;
+      const totalHeight = height + colorPickerHeight + 15;
+
+      const left = centerX - effectiveSpacing;
+      const top = centerY - effectiveSpacing;
+      
+      return {
+        width,
+        height: totalHeight,
+        left,
+        top
+      };
     }
   };
 
@@ -453,28 +474,41 @@ const AlignerPlugin = (() => {
     },
     
     updateIconPositions() {
-      const { iconSize } = CONFIG;
-      const margin = 20;
-      
+      const { iconSize, spacing } = CONFIG;
+      const halfSize = iconSize / 2;
+      const effectiveSpacing = spacing + halfSize;
+
+      const boundingBox = utils.calculateUIBoundingBox(state.lastX, state.lastY);
+
+      const [safeX, safeY] = utils.keepInViewport(
+        boundingBox.left,
+        boundingBox.top,
+        boundingBox.width,
+        boundingBox.height + 10
+      );
+ 
+      const centerX = safeX + effectiveSpacing;
+      const centerY = safeY + effectiveSpacing;
+
       Object.entries(state.icons).forEach(([id, icon], index) => {
         if (id.includes('Circle')) {
           return;
         }
         
-        const position = utils.calculatePosition(index, state.lastX, state.lastY);
-        if (position) {
-          const [x, y] = utils.keepInViewport(position[0], position[1], iconSize);
-          icon.style.transform = `translate(${x}px, ${y}px)`;
+        const relativePos = utils.calculatePosition(index, 0, 0);
+        if (relativePos) {
+          const [relX, relY] = relativePos;
+          icon.style.transform = `translate(${centerX + relX}px, ${centerY + relY}px)`;
         }
       });
 
       const colorCirclesContainer = state.container.querySelector('.color-circles-container');
       if (colorCirclesContainer) {
         const containerWidth = colorCirclesContainer.offsetWidth;
-        const x = state.lastX - containerWidth / 2;
-        const y = state.lastY + CONFIG.spacing + CONFIG.iconSize / 2 + 15;
-        const [safeX, safeY] = utils.keepInViewport(x, y, containerWidth);
-        colorCirclesContainer.style.transform = `translate(${safeX}px, ${safeY}px)`;
+        const x = centerX - containerWidth / 2;
+        const y = centerY + CONFIG.spacing + CONFIG.iconSize / 2 + 15;
+        
+        colorCirclesContainer.style.transform = `translate(${x}px, ${y}px)`;
       }
     },
 
