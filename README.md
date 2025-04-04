@@ -1,5 +1,5 @@
 <div align="center">
-<img src="./images/Comfy-Align.png" width="100%">
+<img src="https://moooonet.github.io/assets/Comfy-Align//images/Comfy-Align.png" width="100%">
 <br><br>
 
 [![English](https://img.shields.io/badge/Languages-English-blue)](README.md)
@@ -94,7 +94,7 @@ Color modification supports node and groups. The plugin includes predefined colo
 
 If you want to modify the shortcut keys as well as the Vertical Min Spacing and Horizontal Min Spacing configurations, you can make the changes in the Align section of the settings panel.
 <div align="center">
-  <img src="./images/settings.png" width="100%">
+  <img src="https://moooonet.github.io/assets/Comfy-Align/images/settings.png" width="100%">
 </div>
 
 
@@ -122,5 +122,5 @@ const CONFIG = {
   <p><strong><i>The fragrance always stays in the hand that gives the rose.</i></strong></p>
   <p>Every contribution directly fuels progress in the open-source world. This support from the community not only validates the value of technology, but constitutes the lifeblood that sustains the open-source ecosystem.</p>
   <br>
-  <img src="./images/buymeacoffee.jpg" width="100%">
+  <img src="https://moooonet.github.io/assets/Comfy-Align/images/buymeacoffee.jpg" width="100%">
 </div>
