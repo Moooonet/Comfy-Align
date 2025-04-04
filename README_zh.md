@@ -95,14 +95,16 @@
 
 ## 配置
 
-默认快捷键是`Alt+A`。如果您想修改快捷键以及其它配置，可以编辑`align.js`文件中的CONFIG对象：
+如果您想修改快捷键以及垂直最小间距(Vertical Min Spacing)和水平最小间距配置(Horizontal Min Spacing)，可以在设置面板的Align中进行修改。
+<div align="center">
+  <img src="./images/settings.png" width="100%">
+</div>
+
+如果您想修改预设颜色，可在`web\js\align.js`中找到如下部分进行修改：
 
 ```javascript
 const CONFIG = {
-  iconSize: 36,        // 图标大小
-  spacing: 112,        // 图标间距
-  horizontalMinSpacing: 30,  // 水平等距分布时节点之间的最小间距
-  verticalMinSpacing: 25,    // 垂直等距分布时节点之间的最小间距
+...
   colors: {
     circle1: '#83314a',  // 红色
     circle2: '#79461d',  // 橙色
@@ -111,15 +113,8 @@ const CONFIG = {
     circle5: '#248382',  // 青色
     circle6: '#246283',  // 蓝色
     circle7: '#3c3c83',  // 紫色
-
-    moon: 'linear-gradient(135deg, #ffd700, #ffb700, #ffd700, #fff6a9)',  // 月亮图标渐变色
-    icon: 'rgba(198, 198, 198, 0.8)',  // 图标颜色
-    bg: 'rgba(12, 12, 12, 0.95)',      // 背景颜色
-    hover: 'rgba(255,255,255,0.2)'     // 悬停颜色
+    ...
   },
-  transition: 'all 0.2s ease',  // 动画过渡效果
-  shortcutKey: 'a',             // 快捷键
-  shortcutModifier: 'alt'       // 快捷键修饰键
 };
 ```
 

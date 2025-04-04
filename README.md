@@ -92,31 +92,26 @@ Color modification supports node and groups. The plugin includes predefined colo
 
 ## Configuration
 
-The default shortcut key is `Alt+A`. If you want to modify the shortcut key and other configurations, you can edit the CONFIG object in the align.js file:
+If you want to modify the shortcut keys as well as the Vertical Min Spacing and Horizontal Min Spacing configurations, you can make the changes in the Align section of the settings panel.
+<div align="center">
+  <img src="./images/settings.png" width="100%">
+</div>
+
+If you want to modify the preset colors, you can locate the following section in `web\js\align.js` to make changes:
 
 ```javascript
 const CONFIG = {
-  iconSize: 36,        // icon size
-  spacing: 112,        // icon spacing
-  horizontalMinSpacing: 30,  // minimum spacing between nodes when distributed horizontally with equal spacing
-  verticalMinSpacing: 25,    // minimum spacing between nodes when distributed vertically with equal spacing
+...
   colors: {
-    circle1: '#83314a',  // red
-    circle2: '#79461d',  // orange
-    circle3: '#6e6e1d',  // yellow
-    circle4: '#2b652b',  // green
-    circle5: '#248382',  // cyan
-    circle6: '#246283',  // blue
-    circle7: '#3c3c83',  // purple
-
-    moon: 'linear-gradient(135deg, #ffd700, #ffb700, #ffd700, #fff6a9)',  // moon icon gradient color
-    icon: 'rgba(198, 198, 198, 0.8)',  // icon color
-    bg: 'rgba(12, 12, 12, 0.95)',      // background color
-    hover: 'rgba(255,255,255,0.2)'     // hover color
+    circle1: '#83314a',  // Red
+    circle2: '#79461d',  // Orange
+    circle3: '#6e6e1d',  // Yellow
+    circle4: '#2b652b',  // Green
+    circle5: '#248382',  // Cyan
+    circle6: '#246283',  // Blue
+    circle7: '#3c3c83',  // Purple
+    ...
   },
-  transition: 'all 0.2s ease',  // animation transition effect
-  shortcutKey: 'a',             // shortcut key
-  shortcutModifier: 'alt'       // shortcut modifier key
 };
 ```
 
