@@ -1,38 +1,41 @@
+import { app } from "../../../scripts/app.js";
+
+const DEFAULT_CONFIG = {
+  iconSize: 36,
+  spacing: 112,
+  horizontalMinSpacing: 30,
+  verticalMinSpacing: 25,
+  colors: {
+    circle1: '#a93232',
+    circle2: '#79461d',
+    circle3: '#6e6e1d',
+    circle4: '#2b652b',
+    circle5: '#248382',
+    circle6: '#246283',
+    circle7: '#3c3c83',
+    circle8: '#000000',      
+    moon: 'linear-gradient(135deg, #ffd700, #ffb700, #ffd700, #fff6a9)',
+    icon: 'rgba(198, 198, 198, 0.8)',
+    bg: 'rgba(12, 12, 12, 0.95)',
+    hover: 'rgba(255,255,255,0.2)'
+  },
+  colorMap: {
+    'red': 'circle1',
+    'orange': 'circle2',
+    'yellow': 'circle3',
+    'green': 'circle4',
+    'cyan': 'circle5',
+    'blue': 'circle6',
+    'purple': 'circle7',
+    'black': 'circle8',
+    'moon': 'moon'
+  },
+  transition: 'all 0.2s ease',
+  shortcut: 'alt+a'
+};
+
 const AlignerPlugin = (() => {
-  const CONFIG = {
-    iconSize: 36,
-    spacing: 112,
-    horizontalMinSpacing: 30,
-    verticalMinSpacing: 25,
-    colors: {
-      circle1: '#a93232',
-      circle2: '#79461d',
-      circle3: '#6e6e1d',
-      circle4: '#2b652b',
-      circle5: '#248382',
-      circle6: '#246283',
-      circle7: '#3c3c83',
-      circle8: '#000000',      
-      moon: 'linear-gradient(135deg, #ffd700, #ffb700, #ffd700, #fff6a9)',
-      icon: 'rgba(198, 198, 198, 0.8)',
-      bg: 'rgba(12, 12, 12, 0.95)',
-      hover: 'rgba(255,255,255,0.2)'
-    },
-    colorMap: {
-      'red': 'circle1',
-      'orange': 'circle2',
-      'yellow': 'circle3',
-      'green': 'circle4',
-      'cyan': 'circle5',
-      'blue': 'circle6',
-      'purple': 'circle7',
-      'black': 'circle8',
-      'moon': 'moon'
-    },
-    transition: 'all 0.2s ease',
-    shortcutKey: 'a',
-    shortcutModifier: 'alt'
-  };
+  const CONFIG = {...DEFAULT_CONFIG};
 
   const state = {
     container: null,
@@ -1194,9 +1197,29 @@ const AlignerPlugin = (() => {
     },
 
     handleKeyDown(e) {
-      if (e[`${CONFIG.shortcutModifier}Key`] && e.key.toLowerCase() === CONFIG.shortcutKey) {
-        e.preventDefault();
-        actions.toggle();
+      const shortcut = CONFIG.shortcut.toLowerCase();
+      const parts = shortcut.split('+');
+
+      if (parts.length === 1) {
+        if (e.key.toLowerCase() === parts[0]) {
+          e.preventDefault();
+          actions.toggle();
+        }
+        return;
+      }
+
+      if (parts.length === 2) {
+        const [modifier, key] = parts;
+
+        let modifierPressed = false;
+        if (modifier === 'alt' && e.altKey) modifierPressed = true;
+        if (modifier === 'ctrl' && (e.ctrlKey || e.metaKey)) modifierPressed = true;
+        if (modifier === 'shift' && e.shiftKey) modifierPressed = true;
+
+        if (modifierPressed && e.key.toLowerCase() === key) {
+          e.preventDefault();
+          actions.toggle();
+        }
       }
     },
 
@@ -1269,6 +1292,14 @@ const AlignerPlugin = (() => {
 
   return {
     init() {
+      CONFIG.horizontalMinSpacing = DEFAULT_CONFIG.horizontalMinSpacing;
+      CONFIG.verticalMinSpacing = DEFAULT_CONFIG.verticalMinSpacing;
+
+      const shortcutSetting = app.extensionManager.setting.get("Align.Shortcut");
+      if (shortcutSetting !== undefined) {
+        CONFIG.shortcut = shortcutSetting;
+      }
+      
       events.registerEventListeners();
     },
     destroy() {
@@ -1278,9 +1309,78 @@ const AlignerPlugin = (() => {
         document.head.removeChild(state.styleElement);
         state.styleElement = null;
       }
-    }
+    },
+    CONFIG
   };
 })();
+
+app.registerExtension({
+  name: "ComfyUI-Align.Settings",
+  settings: [
+    {
+      id: "Align.Spacing.horizontalMin",
+      name: "Horizontal Min Spacing",
+      type: "slider",
+      defaultValue: DEFAULT_CONFIG.horizontalMinSpacing,
+      attrs: {
+        min: 10,
+        max: 100,
+        step: 1
+      },
+      tooltip: "Minimum horizontal spacing between nodes when aligning (in pixels)",
+      onChange: (value) => {
+        if (AlignerPlugin && AlignerPlugin.CONFIG) {
+          AlignerPlugin.CONFIG.horizontalMinSpacing = value;
+        }
+      }
+    },
+    {
+      id: "Align.Spacing.verticalMin",
+      name: "Vertical Min Spacing",
+      type: "slider",
+      defaultValue: DEFAULT_CONFIG.verticalMinSpacing,
+      attrs: {
+        min: 10,
+        max: 100,
+        step: 1
+      },
+      tooltip: "Minimum vertical spacing between nodes when aligning (in pixels)",
+      onChange: (value) => {
+        if (AlignerPlugin && AlignerPlugin.CONFIG) {
+          AlignerPlugin.CONFIG.verticalMinSpacing = value;
+        }
+      }
+    },
+    {
+      id: "Align.Shortcut",
+      name: "Shortcut",
+      type: "text",
+      defaultValue: DEFAULT_CONFIG.shortcut,
+      tooltip: "Shortcut to open the alignment tool (e.g. 'alt+a', 'shift+s', etc.)",
+      onChange: (value) => {
+        if (AlignerPlugin && AlignerPlugin.CONFIG) {
+          AlignerPlugin.CONFIG.shortcut = value;
+        }
+      }
+    }
+  ]
+});
+
+app.registerExtension({
+  name: "ComfyUI-Align.SettingsUpdate",
+  async setup() {
+    await app.extensionManager.setting.set("Align.Spacing.horizontalMin", DEFAULT_CONFIG.horizontalMinSpacing);
+    await app.extensionManager.setting.set("Align.Spacing.verticalMin", DEFAULT_CONFIG.verticalMinSpacing);
+
+    AlignerPlugin.CONFIG.horizontalMinSpacing = DEFAULT_CONFIG.horizontalMinSpacing;
+    AlignerPlugin.CONFIG.verticalMinSpacing = DEFAULT_CONFIG.verticalMinSpacing;
+
+    const shortcutSetting = app.extensionManager.setting.get("Align.Shortcut");
+    if (shortcutSetting !== undefined) {
+      AlignerPlugin.CONFIG.shortcut = shortcutSetting;
+    }
+  }
+});
 
 function initializePlugin() {
   AlignerPlugin.init();
