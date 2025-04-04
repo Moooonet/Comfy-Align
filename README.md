@@ -27,8 +27,6 @@ Tested on ComfyUI Desktop - works smoother than a compulsively aligned grid. Hap
 
 ### If this plugin helps preserve your sanity:
   ⭐ Star it to feed my coding addiction
-  
-  <a href='https://ko-fi.com/M4M21CRQOT' target='_blank'><img height='24' style='border:0px;height:32px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 
 ## Features
@@ -121,4 +119,8 @@ const CONFIG = {
   <br>
   <p><strong><i>The fragrance always stays in the hand that gives the rose.</i></strong></p>
   <p>Every contribution directly fuels progress in the open-source world. This support from the community not only validates the value of technology, but constitutes the lifeblood that sustains the open-source ecosystem.</p>
+  <div>
+    <a href='https://ko-fi.com/M4M21CRQOT' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+    <a href='https://https://afdian.com/a/moooonet' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://moooonet.github.io/assets/Comfy-Align/images/afdian.png' border='0' alt='AFDIAN' /></a>
+  </div>
 </div>

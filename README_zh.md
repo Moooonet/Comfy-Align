@@ -27,8 +27,6 @@
 
 ### 若本插件成功守护了您的理智：
   ⭐ 请来颗星星（用于维持咖啡因依赖）
-  
-  <a href='https://ko-fi.com/M4M21CRQOT' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 
 ## 功能
@@ -124,4 +122,6 @@ const CONFIG = {
   <br>
   <p><strong><i>赠人玫瑰，手留余香</i></strong></p>
   <p>每一份支持都将直接转化为开源世界的进步，这些来自社区的温暖，既是对技术价值的认可，更构成了开源生态持续运转的底层燃料。</p>
+  <a href='https://ko-fi.com/M4M21CRQOT' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+  <a href='https://https://afdian.com/a/moooonet' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://moooonet.github.io/assets/Comfy-Align/images/afdian.png' border='0' alt='AFDIAN' /></a>
 </div>
