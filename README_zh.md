@@ -1,6 +1,5 @@
 <div align="center">
-<img src="./images/Comfy-Align.png" width="100%">
-
+<img src="https://github.com/Moooonet/assets/blob/main/Comfy-Align/images/Comfy-Align.png" width="100%">
 <br><br>
 
 [![English](https://img.shields.io/badge/Languages-English-blue)](README.md)
@@ -97,7 +96,7 @@
 
 如果您想修改快捷键以及垂直最小间距(Vertical Min Spacing)和水平最小间距配置(Horizontal Min Spacing)，可以在设置面板的Align中进行修改。
 <div align="center">
-  <img src="./images/settings.png" width="100%">
+  <img src="https://github.com/Moooonet/assets/blob/main/Comfy-Align/images/settings.png" width="100%">
 </div>
 
 
@@ -126,5 +125,5 @@ const CONFIG = {
   <p><strong><i>赠人玫瑰，手留余香</i></strong></p>
   <p>每一份支持都将直接转化为开源世界的进步，这些来自社区的温暖，既是对技术价值的认可，更构成了开源生态持续运转的底层燃料。</p>
   <br>
-  <img src="./images/buymeacoffee.jpg" width="100%">
+  <img src="https://github.com/Moooonet/assets/blob/main/Comfy-Align/images/buymeacoffee.jpg" width="100%">
 </div>
